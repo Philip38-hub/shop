@@ -27,14 +27,18 @@ class ProductsController < ApplicationController
   def create
     @product = current_user.products.build(product_params)
 
-    respond_to do |format|
-      if @product.save
-        format.html { redirect_to @product, notice: "Product was successfully created." }
-        format.json { render :show, status: :created, location: @product }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
+    if @product.save
+      # Handle file upload
+      if params[:product][:image].present?
+        uploaded_io = params[:product][:image]
+        File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+          file.write(uploaded_io.read)
+        end
       end
+  
+      redirect_to @product, notice: "Product was successfully created."
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 

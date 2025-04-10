@@ -350,6 +350,7 @@ DEPENDENCIES
   gravatar_image_tag (~> 1.2)
   guard (~> 2.14, >= 2.14.1)
   guard-livereload (~> 2.5, >= 2.5.2)
+  image_processing (~> 1.2)
   jbuilder (~> 2.7)
   listen (~> 3.3)
   mini_magick

@@ -5,19 +5,17 @@
       <%= f.error_notification %>
 
         <div class="columns">
-
           <div class="field column is-9">
             <div class="control">
-              <%= f.input :title , required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
+              <%= f.input :title, required: true, input_html: { class: "input"}, wrapper: false, label_html: { class:"label" } %>
             </div>
           </div>
 
           <div class="field column">
             <div class="control">
-              <%= f.input :price, required: true, input_html: { class:"input", maxlength: 7  }, wrapper: false, label_html: { class:"label" } %>
+              <%= f.input :price, required: true, input_html: { class:"input", maxlength: 7 }, wrapper: false, label_html: { class:"label" } %>
             </div>
           </div>
-
         </div>
 
         <div class="field">
@@ -45,7 +43,7 @@
                 </span>
               </div>
             </div>
-           </div>
+          </div>
 
           <div class="field column is-4">
             <div class="control">
@@ -59,7 +57,7 @@
                 </span>
               </div>
             </div>
-           </div>
+          </div>
 
           <div class="field column is-4">
             <div class="control">
@@ -73,24 +71,39 @@
                 </span>
               </div>
             </div>
-           </div>
-         </div>
+          </div>
+        </div>
 
         <div class="field">
+          <label class="label">Add images</label>
           <div class="control">
-            <label class="label">Add images</label>
-              <div class="file">
+            <div class="file has-name">
               <label class="file-label">
-                <%= f.input :image, as: :file, input_html: { class:"file-input product-image" }, label: false, wrapper: false %>
-                  <span class="file-cta">
-                    <span class="file-icon"><i class="fa fa-upload"></i></span>
-                    <span class="file-label">Choose a file…</span>
+                <%= f.file_field :image, class: "file-input", accept: "image/*", id: "product-image-upload" %>
+                <span class="file-cta">
+                  <span class="file-icon">
+                    <i class="fas fa-upload"></i>
                   </span>
+                  <span class="file-label">
+                    Choose a file…
+                  </span>
+                </span>
+                <span class="file-name" id="filename-display">
+                  No file selected
+                </span>
               </label>
-              </div>
             </div>
+            <p class="help mt-2" id="upload-status"></p>
           </div>
-          <output id="list"></output>
+        </div>
+
+        <div class="field mt-4" id="image-preview-container" style="display: none;">
+          <label class="label">Image Preview</label>
+          <div class="control">
+            <img id="image-preview" src="" alt="Preview" style="max-width: 300px; max-height: 300px;">
+          </div>
+        </div>
+
         <hr />
 
         <div class="field is-grouped">
@@ -99,7 +112,38 @@
             <%= link_to 'Cancel', products_path, class:'button is-light' %>
           </div>
         </div>
+    <% end %>
 
-      <% end %>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const fileInput = document.getElementById('product-image-upload');
+        const filenameDisplay = document.getElementById('filename-display');
+        const uploadStatus = document.getElementById('upload-status');
+        const imagePreview = document.getElementById('image-preview');
+        const previewContainer = document.getElementById('image-preview-container');
+        
+        fileInput.addEventListener('change', function() {
+          if (fileInput.files.length > 0) {
+            // Update filename display
+            const fileName = fileInput.files[0].name;
+            filenameDisplay.textContent = fileName;
+            uploadStatus.textContent = 'Image selected and ready to upload';
+            uploadStatus.className = 'help is-success mt-2';
+            
+            // Show image preview
+            const reader = new FileReader();
+            reader.onload = function(e) {
+              imagePreview.src = e.target.result;
+              previewContainer.style.display = 'block';
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+          } else {
+            filenameDisplay.textContent = 'No file selected';
+            uploadStatus.textContent = '';
+            previewContainer.style.display = 'none';
+          }
+        });
+      });
+    </script>
   </div>
 </div>

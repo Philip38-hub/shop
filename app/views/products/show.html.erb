@@ -18,7 +18,11 @@
       </ul>
 
       <div class="feature-image">
-        <%= link_to image_tag(@product.image_url(:default)), @product if @product.image_url(:thumb) %>
+        <% if @product.image.attached? %>
+          <%= image_tag @product.image, class: "product-image" %>
+        <% else %>
+          <p>No image available</p>
+        <% end %>
       </div>
 
       <div class="content pa4 mt3 bg-white border-radius-3">
@@ -65,5 +69,4 @@
       </div>
     </div>
   </div>
-
 </section>

@@ -1,6 +1,5 @@
 module CurrentCart
-    private
-    
+  extend ActiveSupport::Concern
     def set_cart
       # Try to find cart in session
       @cart = Cart.find_by(id: session[:cart_id])

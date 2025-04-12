@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
   before_action :authorize_user, only: [:edit, :update, :destroy]
-
+  
   # GET /products or /products.json
   def index
     @products = Product.all.order("created_at desc")

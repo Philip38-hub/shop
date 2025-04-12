@@ -1,0 +1,52 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title">Your Cart</h1>
+    
+    <div id="cart-content">
+      <% if @cart.line_items.any? %>
+        <div class="box">
+          <table class="table is-fullwidth">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @cart.line_items.each do |line_item| %>
+                <%= render 'line_items/line_item', line_item: line_item %>
+              <% end %>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3" class="has-text-right has-text-weight-bold">Cart Total:</td>
+                <td class="has-text-weight-bold"><%= number_to_currency(@cart.total_price) %></td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+          
+          <div class="columns is-mobile">
+            <div class="column">
+              <%= button_to 'Empty Cart', cart_path(@cart), method: :delete, data: { confirm: 'Are you sure?' }, class: "button is-danger" %>
+            </div>
+            <div class="column has-text-right">
+              <% if user_signed_in? %>
+                <%= link_to 'Checkout', '#', class: "button is-success" %>
+              <% else %>
+                <%= link_to 'Sign in to Checkout', new_user_session_path, class: "button is-success" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% else %>
+        <div class="notification is-warning">
+          Your cart is empty. <%= link_to 'Continue shopping', root_path %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

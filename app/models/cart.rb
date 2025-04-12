@@ -8,7 +8,7 @@ class Cart < ApplicationRecord
       if line_item
         line_item.quantity += 1
       else
-        line_item = line_items.build(product_id: product.id)
+        line_item = line_items.build(product_id: product.id, quantity: 1)
       end
       
       line_item

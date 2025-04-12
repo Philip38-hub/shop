@@ -1,0 +1,8 @@
+<!-- Replace app/views/layouts/_cart_nav.html.erb with this simpler version: -->
+<% if @cart %>
+  <%= link_to cart_path(@cart), class: "navbar-item" do %>
+    <span>Cart (<span id="cart-count"><%= @cart.line_items.sum(:quantity) %></span>)</span>
+  <% end %>
+<% else %>
+  <span>Cart issue: @cart not available</span>
+<% end %>

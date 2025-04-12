@@ -1,0 +1,40 @@
+<tr id="line-item-<%= line_item.id %>">
+  <td>
+    <div class="columns is-vcentered">
+      <div class="column is-narrow">
+        <% if line_item.product.image.attached? %>
+          <%= image_tag line_item.product.image, style: "max-width: 50px; max-height: 50px;" %>
+        <% end %>
+      </div>
+      <div class="column">
+        <%= line_item.product.title %>
+      </div>
+    </div>
+  </td>
+  <td><%= number_to_currency(line_item.product.price) %></td>
+  <td>
+    <div class="field has-addons">
+      <p class="control">
+        <%= link_to decrease_line_item_path(line_item), method: :patch, remote: true, class: "button is-small" do %>
+          <span class="icon is-small">-</span>
+        <% end %>
+      </p>
+      <p class="control">
+        <input class="input is-small has-text-centered" type="text" value="<%= line_item.quantity %>" readonly style="width: 40px;">
+      </p>
+      <p class="control">
+        <%= link_to increase_line_item_path(line_item), method: :patch, remote: true, class: "button is-small" do %>
+          <span class="icon is-small">+</span>
+        <% end %>
+      </p>
+    </div>
+  </td>
+  <td><%= number_to_currency(line_item.total_price) %></td>
+  <td>
+    <%= link_to line_item_path(line_item), method: :delete, remote: true, class: "button is-small is-danger is-outlined" do %>
+      <span class="icon is-small">
+        <i class="fa fa-trash"></i>
+      </span>
+    <% end %>
+  </td>
+</tr>

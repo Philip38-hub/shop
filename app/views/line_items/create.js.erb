@@ -1,0 +1,23 @@
+(function() {
+  // Update cart count in navbar
+  const cartCount = document.querySelector('#cart-count');
+  if (cartCount) {
+    cartCount.innerHTML = '<%= @cart.line_items.sum(:quantity) %>';
+  }
+
+  // Show notification
+  const notification = document.createElement('div');
+  notification.className = 'notification is-success flash-auto-dismiss';
+  notification.innerHTML = '<button class="delete"></button>Added to your cart';
+  document.body.appendChild(notification);
+
+  // Auto-dismiss notification
+  setTimeout(function() {
+    notification.style.opacity = '0';
+    setTimeout(function() {
+      if (notification && notification.parentNode) {
+        notification.parentNode.removeChild(notification);
+      }
+    }, 1000);
+  }, 3000);
+})();

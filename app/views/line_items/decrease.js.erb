@@ -1,0 +1,20 @@
+<!-- app/views/line_items/decrease.js.erb -->
+<% if @line_item.persisted? %>
+  // Update quantity and total price
+  document.querySelector('#line-item-<%= @line_item.id %> input').value = '<%= @line_item.quantity %>';
+  document.querySelector('#line-item-<%= @line_item.id %> td:nth-child(4)').innerHTML = '<%= number_to_currency(@line_item.total_price) %>';
+<% else %>
+  // Remove line item if quantity reached zero
+  document.querySelector('#line-item-<%= params[:id] %>').remove();
+<% end %>
+
+// Update cart total
+document.querySelector('#cart-total').innerHTML = '<%= number_to_currency(@cart.total_price) %>';
+
+// Update cart count in navbar
+document.querySelector('#cart-count').innerHTML = '<%= @cart.total_items %>';
+
+// If cart is empty, refresh the page
+<% if @cart.line_items.empty? %>
+  window.location.reload();
+<% end %>

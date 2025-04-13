@@ -1,8 +1,17 @@
-<!-- Replace app/views/layouts/_cart_nav.html.erb with this simpler version: -->
+<!-- app/views/layouts/_cart_nav.html.erb -->
 <% if @cart %>
-  <%= link_to cart_path(@cart), class: "navbar-item" do %>
-    <span>Cart (<span id="cart-count"><%= @cart.line_items.sum(:quantity) %></span>)</span>
+  <%= link_to cart_path(@cart), class: "navbar-item cart-icon-container" do %>
+    <div class="cart-icon-wrapper">
+      <!-- Font Awesome Cart Icon -->
+      <i class="fas fa-shopping-cart"></i>
+      
+      <!-- Cart Count Badge -->
+      <span class="cart-badge" id="cart-count"><%= @cart.line_items.sum(:quantity) %></span>
+    </div>
   <% end %>
 <% else %>
-  <span>Cart issue: @cart not available</span>
+  <span class="navbar-item text-warning">
+    <i class="fas fa-exclamation-triangle"></i>
+    <span>Cart unavailable</span>
+  </span>
 <% end %>

@@ -1,4 +1,3 @@
-<!-- app/views/line_items/destroy.js.erb -->
 // Update cart count in navbar
 document.querySelector('#cart-count').innerHTML = '<%= @cart.total_items %>';
 
@@ -11,15 +10,16 @@ if (lineItem) {
 // Update cart total
 document.querySelector('#cart-total').innerHTML = '<%= number_to_currency(@cart.total_price) %>';
 
-// Show notification
+// Show notification using your standard flash style
 var notification = document.createElement('div');
-notification.className = 'notification is-warning flash-auto-dismiss';
-notification.innerHTML = '<button class="delete"></button>Removed from your cart';
-document.querySelector('body').appendChild(notification);
+notification.className = 'notification is-success global-notification';
+notification.innerHTML = '<p class="notice">Removed from your cart</p>';
+document.body.insertAdjacentElement('afterbegin', notification);
 
 // Auto-dismiss notification
 setTimeout(function() {
   notification.style.opacity = '0';
+  notification.style.transition = 'opacity 1s';
   setTimeout(function() {
     notification.remove();
   }, 1000);

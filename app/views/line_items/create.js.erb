@@ -1,19 +1,20 @@
 (function() {
-  // Update cart count in navbar
+  // Update cart count in navbar - keeping this as it was
   const cartCount = document.querySelector('#cart-count');
   if (cartCount) {
     cartCount.innerHTML = '<%= @cart.line_items.sum(:quantity) %>';
   }
 
-  // Show notification
+  // Show notification using your standard flash style
   const notification = document.createElement('div');
-  notification.className = 'notification is-success flash-auto-dismiss';
-  notification.innerHTML = '<button class="delete"></button>Added to your cart';
-  document.body.appendChild(notification);
+  notification.className = 'notification is-success global-notification';
+  notification.innerHTML = '<p class="notice">Added to your cart</p>';
+  document.body.insertAdjacentElement('afterbegin', notification);
 
   // Auto-dismiss notification
   setTimeout(function() {
     notification.style.opacity = '0';
+    notification.style.transition = 'opacity 1s';
     setTimeout(function() {
       if (notification && notification.parentNode) {
         notification.parentNode.removeChild(notification);

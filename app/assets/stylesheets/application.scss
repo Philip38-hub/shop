@@ -21,11 +21,26 @@ $link-hover: #222;
 @import "functions";
 @import "cart";
 
-.notification {
+.notification.global-notification {
   border-radius: 0;
+  margin: 0;
+  padding: 1rem 2.5rem 1rem 1.5rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  opacity: 1;
+  
+  .delete {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 }
 
-.notification:not(:last-child) {
+.notification.global-notification:not(:last-child) {
   margin-bottom: 0;
 }
 

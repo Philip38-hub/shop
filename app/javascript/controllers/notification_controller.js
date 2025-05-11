@@ -4,35 +4,30 @@ export default class extends Controller {
   static targets = ["notice"]
 
   connect() {
-    if (this.hasNoticeTarget && this.noticeTarget.textContent.trim() !== "") {
+    if (this.hasNoticeTarget) {
+      // Add delete button
+      const deleteButton = document.createElement('button')
+      deleteButton.className = 'delete'
+      deleteButton.addEventListener('click', () => this.dismiss())
+      this.noticeTarget.insertBefore(deleteButton, this.noticeTarget.firstChild)
+      
+      // Auto dismiss
       this.autoDismiss()
     }
   }
 
+  dismiss() {
+    this.noticeTarget.style.transition = "opacity 0.5s ease-out"
+    this.noticeTarget.style.opacity = 0
+    
+    setTimeout(() => {
+      this.noticeTarget.remove()
+    }, 500)
+  }
+
   autoDismiss() {
     setTimeout(() => {
-      this.noticeTarget.style.transition = "opacity 1s ease-out"
-      this.noticeTarget.style.opacity = 0
-      
-      setTimeout(() => {
-        this.noticeTarget.remove()
-      }, 1000)
+      this.dismiss()
     }, 3000)
   }
 }
-
-// app/javascript/packs/cart.js
-document.addEventListener('turbolinks:load', () => {
-  // Handle Flash Messages
-  const flashMessages = document.querySelectorAll('.notification:not(.is-permanent)');
-  flashMessages.forEach(flash => {
-    setTimeout(() => {
-      flash.style.transition = 'opacity 1s ease';
-      flash.style.opacity = 0;
-      
-      setTimeout(() => {
-        flash.remove();
-      }, 1000);
-    }, 3000);
-  });
-});

@@ -1,71 +1,79 @@
 <% content_for :body_class, 'bg-light' %>
 
 <section class="section product-show">
-  <div class="columns">
-    <div class="column is-8">
-      <h1 class="title is-2"><%= @product.title %></h1>
-
-      <ul class="pv1">
-        <% if @product.brand? %>
-        <li class="inline-block pr3"><%= @product.brand %></li>
-        <% end %>
-
-        <li class="inline-block pr3"><%= @product.model %></li>
-
-        <% if @product.condition? %>
-        <li class="inline-block pr3"><%= @product.condition %></li>
-        <% end %>
-      </ul>
-
-      <div class="feature-image">
-        <% if @product.image.attached? %>
-          <%= image_tag @product.image, class: "product-image" %>
-        <% else %>
-          <p>No image available</p>
-        <% end %>
+  <div class="container">
+    <div class="columns is-vcentered">
+      <div class="column is-7">
+        <div class="feature-image-container">
+          <% if @product.image.attached? %>
+            <%= image_tag @product.image, class: "product-image is-rounded shadow" %>
+          <% else %>
+            <div class="no-image-placeholder">
+              <i class="fas fa-image fa-4x has-text-grey-lighter"></i>
+              <p>No image available</p>
+            </div>
+          <% end %>
+        </div>
       </div>
 
-      <div class="content pa4 mt3 bg-white border-radius-3">
+      <div class="column is-5">
+        <div class="product-details p-6 has-background-white shadow rounded">
+          <h1 class="title is-2 mb-2"><%= @product.title %></h1>
+          
+          <div class="price-tag mb-4">
+            <span class="title is-3 has-text-primary"><%= number_to_currency(@product.price) %></span>
+          </div>
 
-      <h3 class="subtitle is-4">Description</h3>
-      <%= @product.description %>
+          <div class="tags are-medium mb-4">
+            <% if @product.brand? %>
+              <span class="tag is-info"><%= @product.brand %></span>
+            <% end %>
+            <span class="tag is-success"><%= @product.model %></span>
+            <% if @product.condition? %>
+              <span class="tag is-warning"><%= @product.condition %></span>
+            <% end %>
+          </div>
 
+          <div class="description mb-5">
+            <h3 class="subtitle is-4">Description</h3>
+            <div class="content">
+              <%= @product.description %>
+            </div>
+          </div>
 
-      <h3 class="subtitle is-4 pt5">Product Specs</h3>
+          <div class="specifications mb-5">
+            <h3 class="subtitle is-4">Specifications</h3>
+            <table class="table is-fullwidth">
+              <% if @product.condition %>
+                <tr>
+                  <th>Condition</th>
+                  <td><%= @product.condition %></td>
+                </tr>
+              <% end %>
+              <% if @product.finish %>
+                <tr>
+                  <th>Finish</th>
+                  <td><%= @product.finish %></td>
+                </tr>
+              <% end %>
+              <% if @product.brand %>
+                <tr>
+                  <th>Brand</th>
+                  <td><%= @product.brand %></td>
+                </tr>
+              <% end %>
+              <tr>
+                <th>Model</th>
+                <td><%= @product.model %></td>
+              </tr>
+            </table>
+          </div>
 
-      <table class="table is-narrow">
-        <% if @product.condition %>
-        <tr>
-          <td class="has-text-weight-bold">Condition:</td>
-          <td><%= @product.condition %></td>
-        </tr>
-        <% end %>
-
-        <% if @product.finish %>
-          <tr>
-            <td class="has-text-weight-bold">Finish:</td>
-            <td><%= @product.finish %></td>
-          </tr>
-        <% end %>
-
-        <% if @product.brand %>
-          <tr>
-            <td class="has-text-weight-bold">Brand:</td>
-            <td><%= @product.brand %></td>
-          </tr>
-        <% end %>
-
-        <tr>
-          <td class="has-text-weight-bold">Model:</td>
-          <td><%= @product.model %></td>
-        </tr>
-      </table>
-    </div>
-    </div>
-    <div class="column is-3 is-offset-1">
-      <div class="bg-white pa4 border-radius-3">
-        <h4 class="title is-5 has-text-centered"><%= number_to_currency(@product.price) %></h4>
-        <p class="has-text-centered mb4">Sold by <%= @product.user.name %></p>
+          <div class="seller-info has-text-centered p-4 has-background-light rounded">
+            <p class="mb-2">Sold by</p>
+            <p class="title is-5"><%= @product.user.name %></p>
+          </div>
+        </div>
       </div>
     </div>
   </div>

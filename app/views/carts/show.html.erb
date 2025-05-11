@@ -1,17 +1,17 @@
-<section class="section">
+<section class="section cart-section">
   <div class="container">
-    <h1 class="title">Your Cart</h1>
+    <h1 class="title is-2 has-text-centered mb-6">Shopping Cart</h1>
     
     <div id="cart-content">
       <% if @cart.line_items.any? %>
-        <div class="box">
-          <table class="table is-fullwidth">
+        <div class="box cart-box">
+          <table class="table is-fullwidth cart-table">
             <thead>
               <tr>
                 <th>Product</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
+                <th class="has-text-right">Price</th>
+                <th class="has-text-centered">Quantity</th>
+                <th class="has-text-right">Total</th>
                 <th></th>
               </tr>
             </thead>
@@ -21,30 +21,63 @@
               <% end %>
             </tbody>
             <tfoot>
-              <tr>
-                <td colspan="3" class="has-text-right has-text-weight-bold">Cart Total:</td>
-                <td class="has-text-weight-bold" id="cart-total"><%= number_to_currency(@cart.total_price) %></td>
+              <tr class="cart-total">
+                <td colspan="3" class="has-text-right has-text-weight-bold is-size-5">Cart Total:</td>
+                <td class="has-text-right has-text-weight-bold is-size-5" id="cart-total">
+                  <%= number_to_currency(@cart.total_price) %>
+                </td>
                 <td></td>
               </tr>
             </tfoot>
           </table>
           
-          <div class="columns is-mobile">
-            <div class="column">
-              <%= button_to 'Empty Cart', cart_path(@cart), method: :delete, data: { confirm: 'Are you sure?' }, class: "button is-danger" %>
-            </div>
-            <div class="column has-text-right">
-              <% if user_signed_in? %>
-                <%= link_to 'Checkout', '#', class: "button is-success" %>
-              <% else %>
-                <%= link_to 'Sign in to Checkout', new_user_session_path, class: "button is-success" %>
-              <% end %>
+          <div class="cart-actions mt-6">
+            <div class="columns is-mobile">
+              <div class="column">
+                <%= button_to cart_path(@cart), 
+                    method: :delete, 
+                    data: { confirm: 'Are you sure you want to empty your cart?' }, 
+                    class: "button is-danger is-outlined" do %>
+                  <span class="icon">
+                    <i class="fas fa-trash"></i>
+                  </span>
+                  <span>Empty Cart</span>
+                <% end %>
+              </div>
+              <div class="column has-text-right">
+                <% if user_signed_in? %>
+                  <%= link_to '#', class: "button is-success is-medium" do %>
+                    <span class="icon">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                    <span>Checkout</span>
+                  <% end %>
+                <% else %>
+                  <%= link_to new_user_session_path, class: "button is-success is-medium" do %>
+                    <span class="icon">
+                      <i class="fas fa-sign-in-alt"></i>
+                    </span>
+                    <span>Sign in to Checkout</span>
+                  <% end %>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
       <% else %>
-        <div class="notification is-warning">
-          Your cart is empty. <%= link_to 'Continue shopping', root_path %>
+        <div class="empty-cart-container has-text-centered">
+          <div class="empty-cart-icon mb-4">
+            <span class="icon is-large">
+              <i class="fas fa-shopping-cart fa-3x has-text-grey-lighter"></i>
+            </span>
+          </div>
+          <h2 class="title is-4 has-text-grey mb-4">Your cart is empty</h2>
+          <%= link_to root_path, class: "button is-primary is-medium" do %>
+            <span class="icon">
+              <i class="fas fa-shopping-bag"></i>
+            </span>
+            <span>Continue Shopping</span>
+          <% end %>
         </div>
       <% end %>
     </div>

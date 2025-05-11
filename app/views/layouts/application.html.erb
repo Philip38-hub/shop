@@ -11,23 +11,21 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-   <body class="<%= yield (:body_class) %>">
-    <% if flash[:notice] %>
-      <div class="notification is-success global-notification">
-        <p class="notice"><%= notice %></p>
-      </div>
-    <% end %>
-    <% if flash[:alert] %>
-    <div class="notification is-danger global-notification">
+  <body class="<%= yield (:body_class) %>">
+  <div data-controller="notification">
+  <% if flash[:notice] %>
+    <div class="notification is-success global-notification" data-notification-target="notice">
+      <p class="notice"><%= notice %></p>
+    </div>
+  <% end %>
+  <% if flash[:alert] %>
+    <div class="notification is-danger global-notification" data-notification-target="notice">
       <p class="alert"><%= alert %></p>
     </div>
-    <% end %>
-     <nav class="navbar is-warning" role="navigation" aria-label="main navigation">
+  <% end %>
+</div>
+     <nav class="navbar is-warning is-spaced" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <%= link_to root_path, class:"navbar-item" do %>
-          <h1 class="title is-5">Shop</h1>
-        <% end  %>
       <div class="navbar-burger burger" data-target="navbar">
         <span></span>
         <span></span>
@@ -36,6 +34,16 @@
     </div>
 
       <div id="navbar" class="navbar-menu">
+        <div class="navbar-start">
+          <!-- Left side of navbar -->
+        </div>
+        
+        <div class="navbar-item has-text-centered is-expanded">
+          <%= link_to root_path, class:"has-text-centered" do %>
+            <h1 class="title is-3">Shop</h1>
+          <% end %>
+        </div>
+        
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="field is-grouped">

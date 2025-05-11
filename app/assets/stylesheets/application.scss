@@ -22,26 +22,47 @@ $link-hover: #222;
 @import "cart";
 
 .notification.global-notification {
-  border-radius: 0;
-  margin: 0;
-  padding: 1rem 2.5rem 1rem 1.5rem;
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 20px;
+  right: 20px;
   z-index: 1000;
-  opacity: 1;
+  max-width: 400px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  border-radius: 6px;
+  padding-right: 2.5rem;
   
   .delete {
     position: absolute;
     right: 0.5rem;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 0.5rem;
   }
 }
 
 .notification.global-notification:not(:last-child) {
   margin-bottom: 0;
+}
+
+// Fix for delete button in card actions
+.card-actions {
+  .button.is-danger {
+    background-color: #ff3860;
+    border: none;
+    color: white;
+    
+    &:hover {
+      background-color: darken(#ff3860, 10%);
+    }
+    
+    .icon {
+      color: white;
+      margin: 0;
+    }
+  }
+  
+  form {
+    display: inline-block;
+    margin: 0;
+  }
 }
 
 .product-index-grid {

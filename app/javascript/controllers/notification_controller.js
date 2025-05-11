@@ -4,29 +4,30 @@ export default class extends Controller {
   static targets = ["notice"]
 
   connect() {
-    if (this.hasNoticeTarget && this.noticeTarget.textContent.trim() !== "") {
+    if (this.hasNoticeTarget) {
+      // Add delete button
+      const deleteButton = document.createElement('button')
+      deleteButton.className = 'delete'
+      deleteButton.addEventListener('click', () => this.dismiss())
+      this.noticeTarget.insertBefore(deleteButton, this.noticeTarget.firstChild)
+      
+      // Auto dismiss
       this.autoDismiss()
     }
+  }
+
+  dismiss() {
+    this.noticeTarget.style.transition = "opacity 0.5s ease-out"
+    this.noticeTarget.style.opacity = 0
     
-    // Handle all non-permanent flash messages
-    const flashMessages = document.querySelectorAll('.notification:not(.is-permanent)');
-    flashMessages.forEach(flash => {
-      this.dismissElement(flash);
-    });
+    setTimeout(() => {
+      this.noticeTarget.remove()
+    }, 500)
   }
 
   autoDismiss() {
-    this.dismissElement(this.noticeTarget);
-  }
-  
-  dismissElement(element) {
     setTimeout(() => {
-      element.style.transition = "opacity 0.5s ease-out"
-      element.style.opacity = 0
-      
-      setTimeout(() => {
-        element.remove()
-      }, 500)
+      this.dismiss()
     }, 3000)
   }
 }

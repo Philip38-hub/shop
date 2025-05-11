@@ -14,4 +14,5 @@ Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
+import "./product_animations"
 import "./application_flash"

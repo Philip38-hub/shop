@@ -4,39 +4,48 @@
   <div class="container">
     <h1 class="title is-2">Browse Products</h1>
     
-    <div class="product-index-grid pt4">
-    <% @products.each do |product| %>
-  
-      <div class="product border-light">
-      <div class="product-thumb">
-        <% if product.image.attached? %>
-          <%= image_tag product.image, class: "product-image", style: "max-width: 300px; max-height: 300px; object-fit: cover;" %>
-        <% else %>
-          <p class="has-text-centered">No image available</p>
-        <% end %>
-        <% if product.condition? %>
-          <div class="condition">
-            <span class="tag is-dark"><%= product.condition %></span>
+    <div class="columns is-multiline">
+      <% @products.each do |product| %>
+        <div class="column is-3">
+          <div class="card product-card">
+            <div class="card-image">
+              <figure>
+                <%= link_to product do %>
+                  <% if product.image.attached? %>
+                    <%= image_tag product.image, class: "product-image", style: "max-width: 100%; object-fit: cover;" %>
+                  <% else %>
+                    <p class="has-text-centered p-4">No image available</p>
+                  <% end %>
+                <% end %>
+              </figure>
+              
+              <div class="price-tag">
+                <%= number_to_currency(product.price) %>
+              </div>
+              
+              <% if product.condition? %>
+                <div class="condition">
+                  <span class="tag is-dark"><%= product.condition %></span>
+                </div>
+              <% end %>
+            </div>
+            
+            <div class="card-content">
+              <p class="title is-5">
+                <%= link_to product.title, product %>
+              </p>
+              
+              <p class="subtitle is-6 has-text-grey">
+                Sold by: <%= product_author(product) %>
+              </p>
+              
+              <div class="mt-3">
+                <%= render 'add_to_cart', product: product %>
+              </div>
+            </div>
           </div>
-        <% end %>
-      </div>
-  
-  
-      <div class="pa3">
-  
-        <h3 class="fw7 f4 title"><%= link_to product.title, product %></h3>
-  
-        <p class="has-text-gray fg pt1">Sold by: <%= product_author(product) %></p>
-  
-        <div class="flex justify-between items-center">
-          <div class="flex-none">
-            <%= render 'add_to_cart', product: product %>
-          </div>
-          <p class="flex-none f3 fw6 price"><%= number_to_currency(product.price) %></p>
         </div>
-      </div>
-    </div>
-    <% end %>
+      <% end %>
     </div>
   </div>
 </section>

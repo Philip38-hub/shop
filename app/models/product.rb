@@ -1,5 +1,6 @@
 class Product < ApplicationRecord
-  belongs_to :user # Remove `optional: true` if every product must belong to a user
+  belongs_to :user
+  has_many :line_items, dependent: :destroy
 
   # If using Active Storage instead of CarrierWave
   has_one_attached :image

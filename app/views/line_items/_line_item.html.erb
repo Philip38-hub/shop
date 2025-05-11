@@ -31,7 +31,11 @@
   </td>
   <td><%= number_to_currency(line_item.total_price) %></td>
   <td>
-    <%= link_to line_item_path(line_item), method: :delete, remote: true, class: "button is-small is-danger is-outlined" do %>
+    <%= button_to line_item_path(line_item), 
+        method: :delete,
+        remote: true,
+        class: "button is-small is-danger is-outlined",
+        form: { data: { turbo_confirm: 'Are you sure?' } } do %>
       <span class="icon is-small">
         <i class="fa fa-trash"></i>
       </span>

@@ -28,14 +28,6 @@ class ProductsController < ApplicationController
     @product = current_user.products.build(product_params)
 
     if @product.save
-      # Handle file upload
-      if params[:product][:image].present?
-        uploaded_io = params[:product][:image]
-        File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
-          file.write(uploaded_io.read)
-        end
-      end
-  
       redirect_to @product, notice: "Product was successfully created."
     else
       render :new, status: :unprocessable_entity

@@ -227,10 +227,49 @@
     padding-bottom: 1rem;
   }
 
+  .description {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #eee;
+
+    .subtitle {
+      margin-bottom: 1rem;
+      color: #363636;
+    }
+
+    .content {
+      color: #4a4a4a;
+      line-height: 1.6;
+    }
+  }
+
   .specifications {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+
+    .subtitle {
+      margin-bottom: 1.5rem;
+      color: #363636;
+    }
+
     .table {
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      
       th {
         width: 30%;
+        background-color: #f5f5f5;
+        color: #363636;
+        font-weight: 600;
+      }
+
+      td {
+        color: #4a4a4a;
+      }
+
+      th, td {
+        padding: 1rem;
+        border-bottom: 1px solid #eee;
       }
     }
   }

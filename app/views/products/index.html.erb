@@ -1,16 +1,10 @@
-<% content_for :header do %>
-  <section class="hero is-warning">
-    <div class="hero-body">
-      <div class="container">
-        <h1 class="title">
-          Browse new products
-        </h1>
-      </div>
-    </div>
-  </section>
-  <% end %>
-  
-  <div class="product-index-grid pt4">
+
+
+<section class="section">
+  <div class="container">
+    <h1 class="title is-2">Browse Products</h1>
+    
+    <div class="product-index-grid pt4">
     <% @products.each do |product| %>
   
       <div class="product border-light">
@@ -43,4 +37,6 @@
       </div>
     </div>
     <% end %>
+    </div>
   </div>
+</section>

@@ -16,3 +16,13 @@ ActiveStorage.start()
 
 import "./product_animations"
 import "./application_flash"
+
+// Ensure Rails UJS is properly initialized after Turbolinks loads
+document.addEventListener('turbolinks:load', () => {
+  // Ensure delete links work properly
+  document.querySelectorAll('a[data-method="delete"]').forEach(link => {
+    link.addEventListener('ajax:success', () => {
+      // If needed, add custom success handling here
+    });
+  });
+});

@@ -115,7 +115,7 @@
     position: absolute;
     top: 10px;
     left: 10px;
-    opacity: 0;
+    opacity: 0.9;
     transition: opacity 0.3s ease;
     display: flex;
     flex-direction: column;
@@ -138,6 +138,14 @@
       
       .icon {
         font-size: 0.9rem;
+      }
+      
+      &.is-danger {
+        background-color: #ff3860;
+        
+        .icon {
+          color: white;
+        }
       }
     }
   }

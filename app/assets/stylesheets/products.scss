@@ -192,4 +192,50 @@
       border-color: #ffdd57;
     }
   }
+
+  padding: 2rem 0;
+
+  .feature-image-container {
+    margin-bottom: 2rem;
+    
+    .product-image {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+  }
+
+  .shadow {
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+  }
+
+  .rounded {
+    border-radius: 8px;
+  }
+
+  .no-image-placeholder {
+    background: #f5f5f5;
+    padding: 3rem;
+    text-align: center;
+    border-radius: 8px;
+    color: #888;
+  }
+
+  .price-tag {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+  }
+
+  .specifications {
+    .table {
+      th {
+        width: 30%;
+      }
+    }
+  }
+
+  .seller-info {
+    border: 1px solid #eee;
+  }
 }

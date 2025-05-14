@@ -1,5 +1,8 @@
 FROM ruby:3.2.2
 
+# Set Node.js to use the legacy OpenSSL provider
+ENV NODE_OPTIONS=--openssl-legacy-provider
+
 # Install dependencies
 RUN apt-get update -qq && \
     apt-get install -y sqlite3 libsqlite3-dev curl gnupg && \

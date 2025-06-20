@@ -4,30 +4,36 @@ export default class extends Controller {
   static targets = ["notice"]
 
   connect() {
-    if (this.hasNoticeTarget) {
-      // Add delete button
-      const deleteButton = document.createElement('button')
-      deleteButton.className = 'delete'
-      deleteButton.addEventListener('click', () => this.dismiss())
-      this.noticeTarget.insertBefore(deleteButton, this.noticeTarget.firstChild)
-      
-      // Auto dismiss
-      this.autoDismiss()
-    }
+    console.log("[NotificationController] connect", this.noticeTargets)
+    this.noticeTargets.forEach((notice, idx) => {
+      console.log(`[NotificationController] Processing notice #${idx}`, notice)
+      // Add delete button if not present
+      if (!notice.querySelector('.delete')) {
+        const deleteButton = document.createElement('button')
+        deleteButton.className = 'delete'
+        deleteButton.addEventListener('click', () => this.dismiss(notice))
+        notice.insertBefore(deleteButton, notice.firstChild)
+        console.log(`[NotificationController] Delete button added to notice #${idx}`)
+      }
+      // Auto dismiss each notification
+      this.autoDismiss(notice, idx)
+    })
   }
 
-  dismiss() {
-    this.noticeTarget.style.transition = "opacity 0.5s ease-out"
-    this.noticeTarget.style.opacity = 0
-    
+  dismiss(notice) {
+    console.log("[NotificationController] Dismissing notice", notice)
+    notice.style.transition = "opacity 0.5s ease-out"
+    notice.style.opacity = 0
     setTimeout(() => {
-      this.noticeTarget.remove()
+      console.log("[NotificationController] Removing notice from DOM", notice)
+      notice.remove()
     }, 500)
   }
 
-  autoDismiss() {
+  autoDismiss(notice, idx) {
+    console.log(`[NotificationController] Setting auto-dismiss for notice #${idx}`)
     setTimeout(() => {
-      this.dismiss()
+      this.dismiss(notice)
     }, 3000)
   }
 }

@@ -1,9 +1,10 @@
-import { Controller } from "stimulus"
+import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
   static targets = ["notice"]
 
   connect() {
+    console.log('Notification controller connected');
     console.log("[NotificationController] connect", this.noticeTargets)
     this.noticeTargets.forEach((notice, idx) => {
       console.log(`[NotificationController] Processing notice #${idx}`, notice)

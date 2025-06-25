@@ -8,7 +8,7 @@ module ProductsHelper
       # Check if the current user is the creator of the product
       if current_user && current_user == product.user
         # If the current user is the creator, allow editing and deleting
-        "#{seller_name} (You) - #{link_to 'Edit', edit_product_path(product)} | #{link_to 'Delete', product, method: :delete, data: { confirm: 'Are you sure?' }}".html_safe
+        "#{seller_name} (You)".html_safe
       else
         # If the current user is not the creator, just show the seller's name
         seller_name
